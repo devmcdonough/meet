@@ -111,3 +111,7 @@ How to reach the development team for support or queries.
 
 ## Acknowledgments
 Credits to contributors, third-party services or libraries used.
+
+Exercise 4.2
+The Meet App will use the serverless function AWS Lambda to handle the backend with the Google Calendar API.
+Features like filtering by city and choosing how many events are displayed will only be executed when the user requests them. This allows us to reduce costs by only paying according to the amount of usage the app gets, as opposed to paying for the server to be running constantly in the background regardless of how much usage the app is getting.
