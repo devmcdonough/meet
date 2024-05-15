@@ -35,7 +35,7 @@ module.exports.getAuthURL = async () => {
 module.exports.getAccessToken = async (event) =>
 {
   // Decode authorization code from url query
-  const code = decodeURIComponent(`{event.pathParameters.code}`);
+  const code = decodeURIComponent(`${event.pathParameters.code}`);
   return new Promise((resolve, reject) => {
     // Exchange authorization code for access to token with a callback after exchange.
     //The callback is an arrow function with results as "error" and "response"
@@ -83,8 +83,9 @@ module.exports.getCalendarEvents = async (event) =>
       (error, response) => {
         if (error) {
           return reject(error);
+        } else {
+        resolve(response);
         }
-        return resolve(response);
       }
     );
   })

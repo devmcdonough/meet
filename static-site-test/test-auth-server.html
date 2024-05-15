@@ -36,7 +36,13 @@
             <input id="code" type="text" value="" />
         </label> 
         <button id="getToken">Get Token</button>
-        <p id=""accessToken></p>
+        <p id="accessToken"></p>
+
+        <h4>
+            Step 3: Get calendar events using your access token
+        </h4>
+        <button id="getEvents">Get Events</button>
+        <p id="events"></p>
     </main>
 
     <script type="text/javascript">
@@ -69,7 +75,12 @@
 
         getAccessToken.onclick = function () {
             let code = codeValue.value;
+            if (decodeURIComponent(code) === code) {
+            code = encodeURIComponent(codeValue.value);
+            }
+
             const getTokenRequest = `${getToken}/${code}`
+
 
             fetch(getTokenRequest)
                 .then(function (response) {
@@ -83,21 +94,21 @@
 
         // Step 3
 
-        // const getEvents = document.getElementById("getEvents");
-        // const events = document.getElementById("events");
-        // const getCalendarEvents = "";
+        const getEvents = document.getElementById("getEvents");
+        const events = document.getElementById("events");
+        const getCalendarEvents = "https://qn2fyb2b26.execute-api.us-east-1.amazonaws.com/dev/api/get-events";
 
-        // getEvents.onclick = function () {
-        //     const { access_token } = JSON.parse(accessTokenElement.innerText);
-        //     const eventRequest = getCalendarEvents + "/" + access_token;
-        //     fetch(eventRequest)
-        //         .then(function (response) {
-        //             return response.json();
-        //         })
-        //         .then(function (json) {
-        //             events.innerText = JSON.stringify(json, null, 2);
-        //         });
-        // };
+        getEvents.onClick = function () {
+            const { access_token } = JSON.parse(accessTokenElement.innerText);
+            const eventRequest = getCalendarEvents + "/" + access_token;
+            fetch(eventRequest)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (json) {
+                    events.innerText = JSON.stringify(json, null, 2);
+                });
+        };
         
         
         </script>
