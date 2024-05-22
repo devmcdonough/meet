@@ -1,13 +1,15 @@
 // src/__tests__/NumberOfEvents.test.js
 
-import { render } from '@testing-library/react';
+import { render, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import NumberOfEvents from '../components/NumberOfEvents';
+import { getEvents } from '../api';
+import App from '../App';
 
 describe('<NumberOfEvents /> component', () => {
   let NumberOfEventsComponent;
   beforeEach(() => {
-    NumberOfEventsComponent = render(<NumberOfEvents />);
+    NumberOfEventsComponent = render(<NumberOfEvents setCurrentNOE={() => { }} />);
   });
 
   test('renders number of events text input', () => {
@@ -30,3 +32,25 @@ describe('<NumberOfEvents /> component', () => {
     expect(numberTextBox).toHaveValue("32123");
   });
 });
+
+describe('<App /> integration', () => {
+    test('selected number of events in input field are rendered', async () => {
+        const user = userEvent.setup();
+        const AppComponent = render(<App />);
+        const AppDOM = AppComponent.container.firstChild;
+        const NumberOfEventsDOM = AppDOM.querySelector('#number-of-events');
+        const NumberOfEventsInput = within(NumberOfEventsDOM).queryByRole('textbox');
+
+        await userEvent.type(NumberOfEventsInput, "{backspace}{backspace}10");
+
+        const EventListDOM = AppDOM.querySelector('#event-list');
+        const allRenderedEventItems = within(EventListDOM).queryAllByRole('listitem');
+
+        expect(allRenderedEventItems.length).toEqual(10);
+    })
+   
+
+
+
+   
+})
