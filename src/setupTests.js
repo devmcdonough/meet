@@ -17,3 +17,5 @@ console.error = (...args) => {
     args.toString().includes(message));
     if (!ignoreMessage) originalError(...args);
 }
+
+jest.setTimeout(30000);

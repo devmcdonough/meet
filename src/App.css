@@ -106,3 +106,23 @@ input[type="number"] {
   outline: none;
   cursor: pointer;
 }
+
+/* Add this to your existing CSS file */
+.hero-image {
+  position: relative;
+  background-image: url('https://socio.events/wp-content/uploads/2022/10/AdobeStock_240758729-scaled.jpeg'); /* Replace with your hero image path */
+  height: 400px; /* Adjust the height as needed */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-content {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5); /* Add background for better text readability */
+  padding: 10px;
+  border-radius: 5px;
+}

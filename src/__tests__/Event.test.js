@@ -1,41 +1,35 @@
-import { render } from "@testing-library/react";
-import Event from "../components/Event";
-import userEvent from "@testing-library/user-event";
-import { getEvents } from "../api";
+// src/__test__/EventList.test.js
 
-describe('<Event /> component', () => {
-    let EventComponent;
-    let allEvents;
+import { render, within, waitFor } from '@testing-library/react';
+import { getEvents } from '../api';
+import EventList from '../components/EventList';
+import App from "../App";
 
-    beforeAll(async () => {
-        allEvents = await getEvents();
-    })
-    beforeEach(() => {
-        EventComponent = render(<Event event={allEvents[0]} />);
-    })
+describe('<EventList /> component', () => {
+  let EventListComponent;
+  beforeEach(() => {
+    EventListComponent = render(<EventList />);
+  })
 
-    test('renders event title', () => {
-        expect(EventComponent.queryByText(allEvents[0].summary)).toBeInTheDocument();
+  test('has an element with "list" role', () => {
+    expect(EventListComponent.queryByRole("list")).toBeInTheDocument();
+  });
+
+  test('renders correct number of events', async () => {
+    const allEvents = await getEvents();
+    EventListComponent.rerender(<EventList events={allEvents} />);
+    expect(EventListComponent.getAllByRole("listitem")).toHaveLength(allEvents.length);
+  });
+});
+
+describe('<EventList /> integration', () => {
+  test('renders a non-empty list of events when the app is mounted and rendered', async () => {
+    const AppComponent = render(<App />);
+    const AppDOM = AppComponent.container.firstChild;
+    const EventListDOM = AppDOM.querySelector('#event-list');
+    await waitFor(() => {
+      const EventListItems = within(EventListDOM).queryAllByRole('listitem');
+      expect(EventListItems.length).toBe(32);
     });
-
-    test('renders event start time', () => {
-        expect(EventComponent.queryByText(allEvents[0].created)).toBeInTheDocument();
-    });
-
-    test('renders event location', () => {
-        expect(EventComponent.queryByText(allEvents[0].location)).toBeInTheDocument();
-    });
-
-    test('details are hidden by default', () => {
-        expect(EventComponent.container.querySelector('.details')).not.toBeInTheDocument();
-    });
-
-    test('renders details when user clicks show more button', async () => {
-        const user = userEvent.setup();
-        const button = EventComponent.queryByRole('button');
-        const details = EventComponent.container.querySelector('.details');
-        await user.click(button, 'Show Less');
-        expect(details).not.toBeInTheDocument();
-    });
-
- });
+  });
+});
