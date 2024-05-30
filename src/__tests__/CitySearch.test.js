@@ -10,7 +10,11 @@ describe('<CitySearch /> component', () => {
   let CitySearchComponent;
   beforeEach(() => {
     // eslint-disable-next-line testing-library/no-render-in-setup
-    CitySearchComponent = render(<CitySearch allLocations={[]} />);
+    CitySearchComponent = render(<CitySearch 
+      allLocations={[]}
+      setCurrentCity={() => { }}
+      setInfoAlertText={() => { }}
+      />);
   });
 
 
@@ -39,7 +43,11 @@ describe('<CitySearch /> component', () => {
     const user = userEvent.setup();
     const allEvents = await getEvents();
     const allLocations = extractLocations(allEvents);
-    CitySearchComponent.rerender(<CitySearch allLocations={allLocations} />);
+    CitySearchComponent.rerender(<CitySearch 
+      allLocations={allLocations}
+      setCurrentCity={() => {}}
+      setInfoAlertText={() => {}}
+      />);
 
     // user types "Berlin" in city textbox
     const cityTextBox = screen.queryByRole('textbox');
@@ -65,6 +73,7 @@ describe('<CitySearch /> component', () => {
     CitySearchComponent.rerender(<CitySearch
       allLocations={allLocations}
       setCurrentCity={() => { }}
+      setInfoAlertText={() => {}}
     />);
 
     const cityTextBox = screen.queryByRole('textbox');

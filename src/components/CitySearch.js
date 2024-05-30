@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-const CitySearch = ({ allLocations, setCurrentCity }) => {
+const CitySearch = ({ allLocations, setCurrentCity, setInfoAlertText }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -19,6 +19,14 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
     }) : [];
     setQuery(value);
     setSuggestions(filteredLocations);
+
+    let infoText;
+    if (filteredLocations.length === 0) {
+      infoText = "We cannot find the city you are looking for."
+    } else {
+      infoText = ""
+    }
+    setInfoAlertText(infoText);
   };
 
   const handleItemClicked = (event) => {
@@ -26,6 +34,7 @@ const CitySearch = ({ allLocations, setCurrentCity }) => {
     setQuery(value);
     setShowSuggestions(false);
     setCurrentCity(value);
+    setInfoAlertText("");
   };
 
   return (

@@ -1,13 +1,26 @@
 import { useState } from "react";
 
-const NumberOfEvents = ({ setCurrentNOE }) => {
+const NumberOfEvents = ({ setCurrentNOE, setErrorAlertText }) => {
 
   const [number, setNumber] = useState(32);
 
   const handleInputChanged = (event) => {
     const value = event.target.value;
-    setNumber(value);
-    setCurrentNOE(value);
+    let errorText = "";
+    
+    if (Number.isNaN(Number(value))) {
+        errorText = "Only numbers are allowed.";
+    } else if (value < 0) {
+        errorText = "Only positive numbers are allowed.";
+    }
+
+    setErrorAlertText(errorText);
+
+    // Update state only if input is a valid number
+    if (!Number.isNaN(Number(value)) && Number(value) >= 0) {
+        setNumber(value);
+        setCurrentNOE(value);
+    }
   }
 
   return (

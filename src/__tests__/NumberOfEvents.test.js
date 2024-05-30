@@ -8,8 +8,12 @@ import App from '../App';
 
 describe('<NumberOfEvents /> component', () => {
   let NumberOfEventsComponent;
+
   beforeEach(() => {
-    NumberOfEventsComponent = render(<NumberOfEvents setCurrentNOE={() => { }} />);
+    NumberOfEventsComponent = render(<NumberOfEvents 
+        setCurrentNOE={() => { }} 
+        setErrorAlertText={() => { }}
+    />);
   });
 
   test('renders number of events text input', () => {
@@ -36,7 +40,7 @@ describe('<NumberOfEvents /> component', () => {
 describe('<App /> integration', () => {
     test('selected number of events in input field are rendered', async () => {
         const user = userEvent.setup();
-        const AppComponent = render(<App />);
+        const AppComponent = render(<App setErrorAlertText={() => { }} />);
         const AppDOM = AppComponent.container.firstChild;
         const NumberOfEventsDOM = AppDOM.querySelector('#number-of-events');
         const NumberOfEventsInput = within(NumberOfEventsDOM).queryByRole('textbox');
