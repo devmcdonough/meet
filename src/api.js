@@ -53,7 +53,10 @@ const checkToken = async (accessToken) => {
 export const getEvents = async () => {
   nProgress.start();
 
-  if (window.location.href.startsWith('http://localhost')) {
+  const isLocalHost = window.location.href.startsWith('http://localhost');
+  const isGithubPages = window.location.href(startsWith('https://devmcdonough.github.io/meet/'))
+
+  if (isLocalHost || isGithubPages) {
     nProgress.done();
     return mockData;
   }
