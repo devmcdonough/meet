@@ -54,7 +54,7 @@ export const getEvents = async () => {
   nProgress.start();
 
   const isLocalHost = window.location.href.startsWith('http://localhost');
-  const isGithubPages = window.location.href(startsWith('https://devmcdonough.github.io/meet/'))
+  const isGithubPages = window.location.href.startsWith('https://devmcdonough.github.io/meet/');
 
   if (isLocalHost || isGithubPages) {
     nProgress.done();
