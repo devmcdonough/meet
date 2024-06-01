@@ -3,7 +3,7 @@ import EventList from './components/EventList';
 import CitySearch from './components/CitySearch';
 import NumberOfEvents from './components/NumberOfEvents';
 import { getEvents, extractLocations } from './api';
-import { InfoAlert, ErrorAlert } from './components/Alert';
+import { InfoAlert, ErrorAlert, WarningAlert } from './components/Alert';
 import './App.css';
 
 const App = () => {
@@ -14,9 +14,15 @@ const App = () => {
   const [currentCity, setCurrentCity] = useState("See all cities");
   const [infoAlertText, setInfoAlertText] = useState("");
   const [errorAlertText, setErrorAlertText] = useState("");
+  const [warningAlert, setWarningAlert] = useState("");
 
   // Calls for the fetchData function to fire when currentCity or currentNOE is changed
   useEffect(() => {
+    if (navigator.onLine) {
+      setWarningAlert("")
+    } else {
+      setWarningAlert("This app is offline. Keep using it though.")
+    }
     fetchData();
   }, [currentCity, currentNOE]);
 
@@ -38,6 +44,7 @@ const App = () => {
           <div className='alerts-container'>
             {infoAlertText && <InfoAlert text={infoAlertText} />}
             {errorAlertText && <ErrorAlert text={errorAlertText} />}
+            {warningAlert.length && <WarningAlert text={warningAlert} />}
           </div>
           <h1>Find all the cool stuff in your city</h1>
           <CitySearch 
