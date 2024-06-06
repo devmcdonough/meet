@@ -20,9 +20,9 @@ export const getEvents = async () => {
   nProgress.start();
 
   const isLocalHost = window.location.href.startsWith('http://localhost');
-  const isGithubPages = window.location.href.startsWith('https://devmcdonough.github.io/meet/');
+  const isGithubPages = window.location.href.startsWith('https://devmcdonough.github.io/');
 
-  if (isLocalHost || isGithubPages) {
+  if (isLocalHost) {
     nProgress.done();
     return mockData;
   }
@@ -34,6 +34,7 @@ export const getEvents = async () => {
   }
 
   const token = await getAccessToken();
+
   if (token) {
     removeQuery();
     const url = `https://qn2fyb2b26.execute-api.us-east-1.amazonaws.com/dev/api/get-events/${token}`;
@@ -47,6 +48,9 @@ export const getEvents = async () => {
       nProgress.done();
       return null;
     }
+  } else {
+    nProgress.done();
+    return mockData;  // Fallback in case token is not retrieved
   }
 };
 
