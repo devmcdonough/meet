@@ -10,7 +10,8 @@ describe('<CitySearch /> component', () => {
   let CitySearchComponent;
   beforeEach(() => {
     // eslint-disable-next-line testing-library/no-render-in-setup
-    CitySearchComponent = render(<CitySearch 
+    CitySearchComponent = 
+    render(<CitySearch 
       allLocations={[]}
       setCurrentCity={() => { }}
       setInfoAlertText={() => { }}

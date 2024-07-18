@@ -18,7 +18,7 @@
       "src": "meet-app-192.png",
       "type": "image/png",
       "sizes": "192x192",
-      "purpose": "any"
+      "purpose": "maskable"
     },
     {
       "src": "meet-app-512.png",

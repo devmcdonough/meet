@@ -1,8 +1,13 @@
 import { useState } from "react";
+import { genres, genreImages } from './constants';
+
 
 const Event = ({ event }) => {
 
-    const [showDetails, setShowDetails] = useState(false);
+    const [showDetails, setShowDetails] = useState(false); 
+
+    const eventCategory = genres.find((genre) => event.summary.includes(genre));
+    const eventImage = genreImages[eventCategory];
 
     return (
         <li className="event">

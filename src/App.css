@@ -41,6 +41,10 @@ input[type="number"] {
   position: relative;
 }
 
+.list-item {
+  color: #4a4a4a;
+}
+
 .show-more {
   background-color: #4C53D9;
   color: white;

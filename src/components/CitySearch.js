@@ -2,15 +2,16 @@
 
 import { useState, useEffect } from "react";
 
+// Variables subject to change
 const CitySearch = ({ allLocations, setCurrentCity, setInfoAlertText }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
+  // When allLocations is altered setSuggestions is fired to filter the locations displayed
   useEffect(() => {
     setSuggestions(allLocations);
   }, [`${allLocations}`]);
-
 
   const handleInputChanged = (event) => {
     const value = event.target.value;
@@ -20,11 +21,10 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlertText }) => {
     setQuery(value);
     setSuggestions(filteredLocations);
 
-    let infoText;
+    let infoText = "";
     if (filteredLocations.length === 0) {
       infoText = "We cannot find the city you are looking for."
-    } else {
-      infoText = ""
+    }
     }
     setInfoAlertText(infoText);
   };
@@ -52,7 +52,7 @@ const CitySearch = ({ allLocations, setCurrentCity, setInfoAlertText }) => {
           {suggestions.map((suggestion) => {
             return <li onClick={handleItemClicked} key={suggestion}>{suggestion}</li>
           })}
-          <li key='See all cities' onClick={handleItemClicked}>
+          <li className="list-item" key='See all cities' onClick={handleItemClicked}>
             <b>See all cities</b>
           </li>
         </ul>

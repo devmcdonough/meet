@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { colors, genres } from './constants';
 
 const EventGenresChart = ({ events }) => {
     const [data, setData] = useState([]);
-    const genres = ['React', 'Javascript', 'Node', 'jQuery', 'Angular'];
-    const colors = ['#C10A28', '#FF2D2B', '#300A6E', '#0B00CF', '#24AD0E'];
+   
 
      // Updates data every time the city or number of events is changed
      useEffect(() => {
